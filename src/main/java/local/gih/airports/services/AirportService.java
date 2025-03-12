@@ -42,4 +42,9 @@ public class AirportService {
     public List<AirportMinDTO> findByCountry(String countryName) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
+    
+    public Airport findByIataCode(String iataCode){
+        Airport result = airportRepository.findByIataCode(iataCode);
+        return result;
+    }
 }

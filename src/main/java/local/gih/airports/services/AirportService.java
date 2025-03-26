@@ -4,7 +4,9 @@ package local.gih.airports.services;
 import local.gih.airports.repositories.AirportRepository;
 import java.util.List;
 import local.gih.AirportMinDTO.AirportMinDTO;
+import local.gih.AirportMinDTO.AirportNearMeDTO;
 import local.gih.airports.entities.Airport;
+import local.gih.airports.projections.AirportNearMeProjection;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -46,5 +48,14 @@ public class AirportService {
     public Airport findByIataCode(String iataCode){
         Airport result = airportRepository.findByIataCode(iataCode);
         return result;
+    }
+    
+    public List<AirportNearMeDTO> findNearMe(double latitude, double longitude){
+        List<AirportNearMeProjection> resultNearAirports = airportRepository.findNearMe(latitude, longitude);
+        
+        List<AirportNearMeDTO> resultDTO = resultNearAirports.stream()
+                .map(x -> new AirportNearMeDTO(x)).toList();
+        
+        return resultDTO;
     }
 }
